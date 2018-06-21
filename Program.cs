@@ -9,24 +9,21 @@ namespace ElevatorProgram
 {
     class Program
     {
-        private const string QUIT = "q";
+        private const string Quit = "q";
         static void Main(string[] args)
-        {                      
-            
-            int floor;  IElevator elevator;          
+        {
+            IElevator elevator = new Elevator();
           
-           elevator = new Elevator();
-          
-            string input = string.Empty;
+            var input = string.Empty;
 
-            while (input != QUIT)
+            while (input != Quit)
             {
                 Console.WriteLine("Please press which floor you would like to go to");
-
                 input = Console.ReadLine();
-                if (Int32.TryParse(input, out floor))
+                int floor;
+                if (int.TryParse(input, out floor))
                     elevator.FloorPress(floor);
-                else if (input == QUIT)
+                else if (input == Quit)
                     Console.WriteLine("GoodBye!");
                 else
                     Console.WriteLine("You have pressed an incorrect floor, Please try again");

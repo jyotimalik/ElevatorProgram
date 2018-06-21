@@ -12,7 +12,7 @@ namespace ElevatorProgram
         //building has n floors
 
         private readonly Dictionary<int,bool> _floorReady= new Dictionary<int, bool>();
-        private int _currentLevel = 1;
+        private int _currentLevel = 0;
         private readonly int _upperLevel;
         private readonly int _lowerLevel;
         private ElevatorStatus _status = ElevatorStatus.STOPPED;
@@ -44,10 +44,16 @@ namespace ElevatorProgram
 
         private void Descend(int floor)
         {
-            for (int i = _currentLevel; i >= 1; i--)
+            for (int i = _currentLevel-1; i >= _lowerLevel; i--)
             {
                 if (_floorReady[i])
-                    Stop(floor);              
+                {
+                    Stop(floor);
+                    break;
+                }
+
+                Console.WriteLine("Going Down - Floor {0}",
+                    i);
             }
 
             _status = ElevatorStatus.STOPPED;
@@ -56,10 +62,15 @@ namespace ElevatorProgram
 
         private void Ascend(int floor)
         {
-            for (int i = _currentLevel; i <= _upperLevel; i++)
+            for (int i = _currentLevel+1; i <= _upperLevel; i++)
             {
                 if (_floorReady[i])
-                    Stop(floor);             
+                {
+                    Stop(floor);
+                    break;
+                }
+                Console.WriteLine("Going Up - Floor {0}",
+                    i);
             }
 
             _status = ElevatorStatus.STOPPED;
